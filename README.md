@@ -47,7 +47,7 @@ Submissions are evaluated on mean column-wise **ROC AUC**. In other words, the s
 
 # Hyper Parameters :
 * Batch size : 46
-* img_size : 800
+* Img_size : 800
 * Epochs : 100 (with EarlyStopping)
 * Folds : 5
 * Seed : 42
