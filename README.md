@@ -3,7 +3,7 @@
 * [Library I used]()
 * [Techniques I used]()
 * [Hyper Parameters]()
-* [bonus]()
+* [Bonus]()
 
 
 # Overview :
