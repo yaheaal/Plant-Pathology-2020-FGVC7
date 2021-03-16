@@ -55,3 +55,4 @@ Submissions are evaluated on mean column-wise **ROC AUC**. In other words, the s
 # Bonus :
 
 # Reference :
+[Background Remval](https://www.kaggle.com/victorlouisdg/plant-pathology-opencv-background-removal)
