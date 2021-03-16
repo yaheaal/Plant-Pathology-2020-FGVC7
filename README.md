@@ -1,5 +1,9 @@
 # Table of contents
 * [Overview]()
+* [Library I used]()
+* [Techniques I used]()
+* [Hyper Parameters]()
+* [bonus]()
 
 
 # Overview :
@@ -48,5 +52,5 @@ Submissions are evaluated on mean column-wise **ROC AUC**. In other words, the s
 * Folds : 5
 * Seed : 42
 
-# bonus :
+# Bonus :
 
