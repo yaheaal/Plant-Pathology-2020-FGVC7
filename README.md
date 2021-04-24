@@ -1,8 +1,8 @@
 # Files guid
-* Images: An image for each case.
-* top-4%-lb: Here is the main work.
-* back_ground: Code used to remove background. (note that I didn't use it in my model)
-* Plant EDA: Exploratory data analysis on the data (simple). **NOTE** : to see all the plots in the GitHub notebook you should paste the GitHub notebook link [Here](https://nbviewer.jupyter.org) 
+* **Images:** An image for each case.
+* **top-4%-lb:** Here is the main work.
+* **back_ground:** Code used to remove background. (note that I didn't use it in my model)
+* **Plant EDA:** Exploratory data analysis on the data (simple). **NOTE** : to see all the plots in the GitHub notebook you should paste the GitHub notebook link [Here](https://nbviewer.jupyter.org) 
 # Table of contents
 * [Overview](#overview)
 * [Libraries I used](#Libraries-i-used)
