@@ -1,3 +1,4 @@
+Link to the [Competition](https://www.kaggle.com/c/plant-pathology-2020-fgvc7)
 # Files guid
 * **Images:** An image for each case.
 * **top-4%-lb:** Here is the main work.
@@ -76,4 +77,3 @@ Also **back_ground** file will help you to separate the leaf from the background
 # Reference
 * [Background Removal](https://www.kaggle.com/victorlouisdg/plant-pathology-opencv-background-removal)
 * [EDA](https://www.kaggle.com/tarunpaparaju/plant-pathology-2020-eda-models)
-* [Competition](https://www.kaggle.com/c/plant-pathology-2020-fgvc7)
