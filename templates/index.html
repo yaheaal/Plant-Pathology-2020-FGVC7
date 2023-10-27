@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload</title>
+    <style>
+        /* Global settings */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+            background-image: url('/s3-image/cover.jpg');
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat; 
+        }
+
+        .spinner {
+            border: 8px solid #f3f3f3; 
+            border-top: 8px solid #3498db; 
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+            display: none; /* Hidden by default */
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+
+        /* Drop Area styling */
+        #drop-area {
+            border: 3px dashed #ffffff; /* Change to a white dashed border */
+            transition: border 0.3s, box-shadow 0.3s; /* Add transition for box-shadow */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            background: rgba(0, 0, 0, 0.7); /* Darken the background for better contrast */
+            padding: 30px; /* Increase padding */
+            border-radius: 15px; /* Increase border-radius for smoother edges */
+            width: 60%; /* Adjust the width as per your need */
+            text-align: center; /* To center the text and content inside */
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.3); /* Add a subtle shadow */
+        }
+
+        #drop-area.highlight {
+            border: 3px dashed #c00; /* Highlighted border when files are dragged over it */
+            box-shadow: 0px 0px 15px rgba(255, 0, 0, 0.5); /* More prominent red shadow when highlighted */
+        }
+
+        #gallery {
+            margin-top: 20px;
+        }
+        #gallery img {
+            max-width: 150px;
+            margin: 10px 5px;
+        }
+        
+        #drop-area .my-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #drop-area p {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        #fileElem {
+            display: none; /* Hide the default input */
+        }
+
+        .button {
+            padding: 10px 20px;
+            background-color: #4CAF50; /* Green */
+            color: white;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #45a049; /* Darker green */
+        }
+
+        /* Category footer styling */
+        .categories {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .category-title {
+            font-weight: bold;
+            color: #333; /* Dark grey */
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .category-image {
+            max-width: 100px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 5px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .category-image:hover {
+            transform: scale(1.05); /* Zoom effect on hover */
+        }
+    </style>
+</head>
+<body>
+    <script src="../static/dragDropUpload.js"></script>
+    <div id="drop-area">
+        <form class="my-form" id="upload-form">
+            <p>Drag and drop an image or click to select a file</p>
+            <input type="file" id="fileElem" accept="image/*">
+            <label class="button" for="fileElem" id="selectButton">Select some files</label>
+            <div id="gallery"></div> <!-- To show preview of uploaded images -->
+            <button type="button" class="button" id="predictButton" style="display: none;">Predict</button>
+            <div id="loadingSpinner" class="spinner"></div>
+            <div id="predictionDisplay" class="button" style="display: none;"></div> <!-- Prediction Display -->
+        </form>
+    </div>
+
+    <div class="categories">
+        <div class="category">
+            <span class="category-title">Healthy</span>
+            <img src="/s3-image/healthy1.jpg" alt="Example 1" class="category-image">
+            <img src="/s3-image/healthy2.jpg" alt="Example 2" class="category-image">
+        </div>
+        <div class="category">
+            <span class="category-title">Rust</span>
+            <img src="/s3-image/rust1.jpg" alt="Example 3" class="category-image">
+            <img src="/s3-image/rust2.jpg" alt="Example 4" class="category-image">
+        </div>
+        <div class="category">
+            <span class="category-title">Scab</span>
+            <img src="/s3-image/scab1.jpg" alt="Example 5" class="category-image">
+            <img src="/s3-image/scab2.jpg" alt="Example 6" class="category-image">
+        </div>
+        <div class="category">
+            <span class="category-title">Multy</span>
+            <img src="/s3-image/multiple_diseases1.jpg" alt="Example 7" class="category-image">
+            <img src="/s3-image/multiple_diseases2.jpg" alt="Example 8" class="category-image">
+        </div>
+    </div>
+
+    <script>
+        function handleFiles(files) {
+            ([...files]).forEach(uploadFile);
+        }
+
+        function uploadFile(file) {
+            var url = '/';
+            var xhr = new XMLHttpRequest();
+            var formData = new FormData();
+            xhr.open('POST', url, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    alert(xhr.responseText);
+                }
+            };
+            formData.append('file', file);
+            xhr.send(formData);
+        }
+    </script>
+</body>
+</html>
