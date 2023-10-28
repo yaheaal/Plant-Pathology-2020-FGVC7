@@ -51,8 +51,8 @@ model1 = tf.keras.Sequential([
         L.Dense(4, activation='softmax')
     ])
 
-WEIGHTS_PATH = '/Users/yaheaal/Desktop/Plant-Pathology-2020-FGVC7/model_den.h5'  # Update this path
-model1 = load_model_weights_from_local(model1, WEIGHTS_PATH)
+# WEIGHTS_PATH = '/Users/yaheaal/Desktop/Plant-Pathology-2020-FGVC7/model_den.h5'  # Update this path
+# model1 = load_model_weights_from_local(model1, WEIGHTS_PATH)
 # model1 = load_model_weights_from_s3(model1, S3_BUCKET, MODEL_PATH_1_S3_KEY)
 model1.compile(
     optimizer='adam',
