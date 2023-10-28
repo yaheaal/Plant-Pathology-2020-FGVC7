@@ -1,6 +1,6 @@
 # Python 3.9.6
 Flask==3.0.0
 numpy==1.26.0
-tensorflow==2.14.0
+tensorflow-macos
 boto3==1.28.62
 gunicorn==20.1.0
