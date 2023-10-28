@@ -37,6 +37,10 @@ def load_model_weights_from_s3(model, s3_bucket, s3_key):
     
     return model
 
+def load_model_weights_from_local(model, weights_path):
+    model.load_weights(weights_path)
+    return model
+
 model1 = tf.keras.Sequential([
         tf.keras.applications.DenseNet201(
             input_shape=(768, 768, 3),
@@ -47,12 +51,14 @@ model1 = tf.keras.Sequential([
         L.Dense(4, activation='softmax')
     ])
 
+WEIGHTS_PATH = '/Users/yaheaal/Desktop/Plant-Pathology-2020-FGVC7/model_den.h5'  # Update this path
+model1 = load_model_weights_from_local(model1, WEIGHTS_PATH)
 # model1 = load_model_weights_from_s3(model1, S3_BUCKET, MODEL_PATH_1_S3_KEY)
-# model1.compile(
-#     optimizer='adam',
-#     loss='categorical_crossentropy',
-#     metrics=['categorical_accuracy']
-# )
+model1.compile(
+    optimizer='adam',
+    loss='categorical_crossentropy',
+    metrics=['categorical_accuracy']
+)
 
 def decode_image(filename, image_size=(768, 768)):
     bits = tf.io.read_file(filename)
@@ -84,9 +90,9 @@ def index():
             image_stream.seek(0)  # Reset stream position
 
             img_ds = prepare_test_single_image_from_stream(image_stream)
-            # prediction, predicted_class = prepare_predictions(img_ds, model1)
+            prediction, predicted_class = prepare_predictions(img_ds, model1)
 
-            return jsonify({'prediction': f'{.5} is ddd'})
+            return jsonify({'prediction': f'{prediction} is {predicted_class}'})
 
         return render_template('index.html')
     except Exception as e:
