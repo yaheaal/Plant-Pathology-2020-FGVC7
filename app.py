@@ -3,7 +3,6 @@ from flask import Flask, render_template, request, jsonify
 import os
 import numpy as np
 import tensorflow as tf
-import awsgi
 import io
 
 AWS_ACCESS_KEY = os.environ.get('AWS_ACCESS_KEY')
@@ -111,9 +110,6 @@ def prepare_predictions(img_ds, model):
     formatted_max_value = "{:.3f}%".format(max_value)
 
     return formatted_max_value, predicted_class
-
-def lambda_handler(event, context):
-    return awsgi.response(app, event, context)
 
 if __name__ == '__main__':
     app.run(debug=True)
